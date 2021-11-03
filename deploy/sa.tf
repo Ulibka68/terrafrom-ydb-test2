@@ -22,6 +22,7 @@ resource "yandex_iam_service_account_iam_binding" "ydb-admin" {
   ]
 }*/
 
+# ************** Назначить роли сервисному account
 
 resource "yandex_resourcemanager_folder_iam_binding" "ydb-admin" {
   folder_id = local.folder_id
@@ -52,3 +53,5 @@ resource "yandex_resourcemanager_folder_iam_binding" "storage-editor" {
   role = "storage.editor"
   members = ["serviceAccount:${local.srv_acc_catalog_id}",]
 }
+
+# ************** Назначить роли сервисному account  END

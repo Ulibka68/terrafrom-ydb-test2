@@ -11,6 +11,7 @@ service_account_key_file.json
 **/.terraform/**
 *.tfstate*
 *.terraform.*
-.terraform.lock.hcl
+deploy/terraform.json
+
 
 
