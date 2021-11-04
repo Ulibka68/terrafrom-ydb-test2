@@ -1,0 +1,19 @@
+CREATE TABLE tmdb (
+    adult Bool,
+    backdrop_path Utf8,
+    genre_ids Json,
+    id Uint64,
+    original_language Utf8,
+    original_title Utf8,
+    overview Utf8,
+    popularity float,
+    poster_path Utf8,
+    release_date Date,
+    title utf8,
+    video Bool,
+    vote_average float,
+    vote_count Uint32,
+
+ PRIMARY KEY (id)
+)
+COMMIT;

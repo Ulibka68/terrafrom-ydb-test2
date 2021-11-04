@@ -1,0 +1,168 @@
+UPSERT INTO tmdb
+    (
+        id,
+        adult,
+        backdrop_path,
+        popularity,
+        release_date,
+        title,
+        video,
+        vote_average,
+        vote_count
+        )
+VALUES (1112,
+ false,
+ 'backdrop_path',
+cast( 25.3 as float),
+ cast('2020-05-23' as date),
+ 'title',
+ true,
+ 45.2,
+ 525
+ );
+
+
+________________________________________________________________
+
+
+DECLARE $id AS Uint64;
+
+$id = 1111;
+
+SELECT `id`,  `backdrop_path`
+FROM `tmdb`
+where id=$id
+ORDER BY `id`
+LIMIT 10;
+
+________________________________________________________________
+
+SELECT series_id, title, series_info, release_date, views
+FROM series view views_index
+WHERE views >= someValue
+________________________________________________________________
+$to_update = (
+    SELECT pk_field, field1 = $f1, field2 = $f2, ...
+    FROM   table1 view idx_field3
+    WHERE  field3 = $f3)
+
+UPDATE table1 ON SELECT * FROM $to_update
+________________________________________________________________
+ALTER TABLE episodes ADD COLUMN viewers Uint64;
+ALTER TABLE episodes DROP COLUMN viewers;
+________________________________________________________________
+ALTER TABLE `series` ADD INDEX `title_index` GLOBAL [SYNC|ASYNC] ON (`title`);
+При необходимости можно продублировать данные в индекс, использовав ключевое слово COVER:
+ALTER TABLE `series` ADD INDEX `title_index` GLOBAL [SYNC|ASYNC] ON (`title`) COVER(`release_date`);
+Если не указать тип индекса, то по умолчанию будет создан синхронный индекс.
+ALTER TABLE `series` DROP INDEX `title_index`;
+________________________________________________________________
+SELECT * FROM my_table
+WHERE string_column REGEXP '\\d+';
+-- второй слеш нужен, так как все
+-- стандартные строковые литералы в SQL
+-- могут принимать С-escaped строки
+
+________________________________________________________________
+IN
+https://cloud.yandex.ru/docs/ydb/yql/reference/syntax/expressions#in
+Сразу после IN можно указать хинт COMPACT.
+
+$values = (SELECT column + 1 FROM table);
+SELECT * FROM my_table WHERE
+   -- фильтрация по in-memory хеш-таблице на основе table
+   column1 IN COMPACT $values AND
+   -- с последующим LEFT ONLY JOIN с other_table
+   column2 NOT IN (SELECT other_column FROM other_table);
+
+________________________________________________________________
+
+SELECT
+  CASE
+    WHEN value > 0
+    THEN "positive"
+    ELSE "negative"
+  END
+FROM my_table;
+
+SELECT
+  CASE value
+    WHEN 0 THEN "zero"
+    WHEN 1 THEN "one"
+    ELSE "not zero or one"
+  END
+FROM my_table;
+
+-----------------------------------------------------------------
+
+-- comment
+
+/* comment */
+
+----------------------------------------------------------------
+
+$intermediate = (
+  SELECT
+    value * value AS square,
+    value
+  FROM my_table
+);
+SELECT a.square * b.value
+FROM $intermediate AS a
+INNER JOIN $intermediate AS b
+ON a.value == b.square;
+
+________________________________________________________________
+$a, $b, $c = AsTuple(1, 5u, "test"); -- распаковка кортежа
+SELECT $a, $b, $c;
+
+________________________________________________________________
+Lambda функции
+
+$x = ($y) -> {
+    $prefix = "x";
+    RETURN $prefix || $y;
+};
+
+SELECT $x("y"); -- "xy"
+
+________________________________________________________________
+SELECT
+  AsTuple(1, 2, "3") AS tuplevar,
+  AsStruct(
+    1 AS a,
+    2 AS b,
+    "3" AS c
+  ) AS structvar,
+  AsList(1, 2, 3) AS listvar,
+  AsDict(
+    AsTuple("a", 1),
+    AsTuple("b", 2),
+    AsTuple("c", 3)
+  ) AS dictvar;
+________________________________________________________________
+
+SELECT TableRow() FROM my_table;
+
+________________________________________________________________
+    Date("2017-11-27"),
+  Datetime("2017-11-27T13:24:00Z"),
+  Timestamp("2017-11-27T13:24:00.123456Z"),
+  Interval("P1DT2H3M4.567890S"),
+
+  ________________________________________________________________
+LIKELY
+Позволяет подсказать оптимизатору, что содержащееся в аргументе булевое значение чаще всего будет true. На данный момент эта подсказка используется только при выборе стратегии выполнения JOIN
+
+________________________________________________________________
+-- В контексте без GROUP BY — опциональный тип List?
+SELECT LIST(ip, 1)
+FROM [//home/yql/tutorial/users]
+________________________________________________________________
+$min_by_factory = AGGREGATION_FACTORY("MIN_BY");
+$max_by_factory = AGGREGATION_FACTORY("MAX_BY", 100);
+
+SELECT
+    AGGREGATE_BY(AsTuple(value, LENGTH(value)), $min_by_factory),
+    AGGREGATE_BY(AsTuple(value, key), $max_by_factory)
+FROM my_table;

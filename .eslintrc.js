@@ -17,15 +17,19 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: [ '@typescript-eslint', 'prettier'],
+  plugins: ['@typescript-eslint', 'prettier'],
   rules: {
-    'prettier/prettier': ['error', { singleQuote: true }]
+    'prettier/prettier': ['error', { singleQuote: true }],
+    '@typescript-eslint/ban-types': 0,
+    '@typescript-eslint/ban-ts-comment': 0,
+    '@typescript-eslint/no-explicit-any': 0,
   },
   overrides: [
     {
       files: ['webpack.config.js'],
       rules: {
         '@typescript-eslint/no-var-requires': ['off'],
+        '@typescript-eslint/ban-types': 0,
       },
     },
   ],
