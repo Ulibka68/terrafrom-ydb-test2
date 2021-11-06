@@ -84,6 +84,12 @@ VALUES (
     release_date: new Date('2020-05-26'),
   });
 
+  console.log();
+  console.log('======== QUERY====================');
+  // console.log(tmdb_record.generateYQLUpsert(TMDB_TABLE));
+  console.log(tmdb_record.YQLUpsert);
+  console.log('======== QUERY');
+
   async function fillTable() {
     logger.info('Inserting data to tables, preparing query...');
     // console.log(query);
