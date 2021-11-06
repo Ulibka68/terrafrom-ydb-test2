@@ -91,7 +91,16 @@ VALUES (
     1214,
     '1214',
     JSON.stringify([1]),
-    new Date('2220-01-26')
+    new Date('2020-01-26')
   );
+  await withRetries(fillTable);
+  console.log();
+  console.log('--------------------');
+  tmdb_record = Tmdb.create1({
+    id: 2024,
+    title: 'title 2024',
+    genre_ids: JSON.stringify([1]),
+    release_date: new Date('2022-01-01'),
+  });
   await withRetries(fillTable);
 }
