@@ -1,7 +1,7 @@
 import { config } from 'dotenv';
 config({ path: 'env.local' });
 
-import { databaseName, SYNTAX_V1 } from './config';
+import { databaseName } from './config';
 
 console.log(process.env.YDB_SERVICE_ACCOUNT_KEY_FILE_CREDENTIALS);
 console.log('====================');
@@ -18,6 +18,7 @@ import {
   Ydb,
 } from 'ydb-sdk';
 import { importTmdb } from './import_tmdb2';
+import { debug } from 'console';
 
 const logger = getLogger({ level: 'debug' });
 const entryPoint = 'grpcs://ydb.serverless.yandexcloud.net:2135';
@@ -31,9 +32,12 @@ async function describeTable(
   logger.info(`Describing table: ${tableName}`);
   const result = await session.describeTable(tableName);
   for (const column of result.columns) {
-    logger.info(
+    console.log(
       `Column name '${column.name}' has type ${JSON.stringify(column.type)}`
     );
+    console.log(column.type);
+    console.log(column.type);
+    console.log(column.type!.optionalType!.item!.typeId);
   }
 }
 
