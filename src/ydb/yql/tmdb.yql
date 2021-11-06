@@ -16,4 +16,3 @@ CREATE TABLE tmdb (
 
  PRIMARY KEY (id)
 )
-COMMIT;

@@ -4,9 +4,8 @@
   "license": "MIT",
   "author": "Gayrat Vlasov",
   "scripts": {
-    "ts-node": "ts-node ./src/ydb-main.ts",
+    "ts-node": "ts-node ./src/ydb/ydb-main.ts",
     "ts-node2": "cp -f ./deploy/terraform.tfstate ./deploy/terraform.json && ts-node ./src/config.ts",
-    "ts-node3": "ts-node ./src/ydb/ydb-main.ts",
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "clean": "rimraf -rf dist build ",
     "tsc-build2": "tsc ./src/ydb-main.ts --outfile ydb-main.js -p tsconfig.json",

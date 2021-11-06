@@ -15,14 +15,14 @@ type ITableFromClass<T extends object> = { [K in NonFunctionKeys<T>]: T[K] };
 interface ITmdb {
   adult: boolean;
   backdrop_path: string;
-  genre_ids: Array<number>;
+  genre_ids?: Array<number>;
   id: number;
   original_language: string;
   original_title: string;
   overview: string;
   popularity: number;
   poster_path: string;
-  release_date: Date;
+  release_date?: Date;
   title: string;
   video: boolean;
   vote_average: number;
@@ -35,7 +35,7 @@ export class Tmdb extends TypedData {
   @declareType({ typeId: TypePrim.UTF8 })
   public backdrop_path: string;
   @declareType({ typeId: TypePrim.JSON })
-  public genre_ids: Array<number>;
+  public genre_ids?: Array<number>;
   @declareType({ typeId: TypePrim.UINT64 })
   public id: number;
   @declareType({ typeId: TypePrim.UTF8 })
@@ -49,7 +49,7 @@ export class Tmdb extends TypedData {
   @declareType({ typeId: TypePrim.UTF8 })
   public poster_path: string;
   @declareType({ typeId: TypePrim.UTF8 })
-  public release_date: Date;
+  public release_date?: Date;
   @declareType({ typeId: TypePrim.DATE })
   public title: string;
   @declareType({ typeId: TypePrim.BOOL })
@@ -79,36 +79,36 @@ export class Tmdb extends TypedData {
   }
 
   static create(
-    adult: boolean,
-    backdrop_path: string,
-    genre_ids: Array<number>,
     id: number,
-    original_language: string,
-    original_title: string,
-    overview: string,
-    popularity: number,
-    poster_path: string,
-    release_date: Date,
-    title: string,
-    video: boolean,
-    vote_average: number,
-    vote_count: number
+    vote_count: number,
+    adult?: boolean,
+    backdrop_path?: string,
+    genre_ids?: Array<number>,
+    original_language?: string,
+    original_title?: string,
+    overview?: string,
+    popularity?: number,
+    poster_path?: string,
+    release_date?: Date,
+    title?: string,
+    video?: boolean,
+    vote_average?: number
   ): Tmdb {
     return new this({
-      adult,
-      backdrop_path,
-      genre_ids,
       id,
-      original_language,
-      original_title,
-      overview,
-      popularity,
-      poster_path,
-      release_date,
-      title,
-      video,
-      vote_average,
       vote_count,
+      adult: adult || false,
+      backdrop_path: backdrop_path || '',
+      genre_ids,
+      original_language: original_language || '',
+      original_title: original_title || '',
+      overview: overview || '',
+      popularity: popularity || 1,
+      poster_path: poster_path || '',
+      release_date,
+      title: title || '',
+      video: video || false,
+      vote_average: vote_average || 1,
     });
   }
 }
@@ -185,6 +185,8 @@ export class Tmdb2 extends TypedData {
 
 export type I2Tmdb = ITableFromClass<Tmdb2>;
 
+/*
+
 const a = Tmdb2.create(
   true,
   'backdrop_path',
@@ -202,3 +204,4 @@ const a = Tmdb2.create(
   1
 );
 console.log(a.adult);
+*/

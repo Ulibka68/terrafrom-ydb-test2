@@ -17,7 +17,7 @@ import {
   withRetries,
   Ydb,
 } from 'ydb-sdk';
-import { importTmdb } from './import_tmdb';
+import { importTmdb } from './import_tmdb2';
 
 const logger = getLogger({ level: 'debug' });
 const entryPoint = 'grpcs://ydb.serverless.yandexcloud.net:2135';
@@ -54,7 +54,7 @@ async function run() {
     console.log('+=+=+=+= describeTable END');
 
     console.log('->->->-> fillTablesWithData START');
-    importTmdb(session, logger);
+    await importTmdb(session, logger);
     console.log('->->->-> fillTablesWithData END');
     // выполняем запросы в конкретной сессии
     /*

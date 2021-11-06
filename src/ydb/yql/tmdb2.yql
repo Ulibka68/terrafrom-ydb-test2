@@ -1,0 +1,7 @@
+CREATE TABLE tmdb (
+    id Uint64,
+    title utf8,
+
+ PRIMARY KEY (id)
+)
+COMMIT;

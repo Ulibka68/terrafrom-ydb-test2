@@ -1,6 +1,6 @@
 import { TMDB_TABLE, Tmdb } from './table_defs';
 import { databaseName, SYNTAX_V1 } from './config';
-import { Logger, Session, withRetries } from 'ydb-sdk';
+import { Logger, Session, withRetries, Ydb } from 'ydb-sdk';
 
 /*
 PRAGMA
@@ -26,11 +26,11 @@ DECLARE $id as Uint64;
 DECLARE $adult as Bool;
 DECLARE $backdrop_path as Utf8;
 DECLARE $popularity as float;
-DECLARE $release_date as DateTime;
+DECLARE $release_date as Date;
 DECLARE $title as Utf8;
 DECLARE $video as bool;
 DECLARE $vote_average as float;
-DECLARE $vote_coun as uint32;
+DECLARE $vote_count as uint32;
 
 UPSERT INTO  ${TMDB_TABLE}
     (
@@ -58,26 +58,20 @@ VALUES (
 
 `;
 
-  const tmdb_record = Tmdb.create(
-    false,
-    'backdrop_path',
-    [1],
-    452,
-    'ru',
-    'title',
-    '',
-    1,
-    'poster_path',
-    new Date(),
-    'title',
-    false,
-    1,
-    1
-  );
+  const tmdb_record = Tmdb.create(12, 452);
 
   async function fillTable() {
     logger.info('Inserting data to tables, preparing query...');
-    const preparedQuery = await session.prepareQuery(query);
+    // console.log(query);
+    let preparedQuery: Ydb.Table.PrepareQueryResult;
+    try {
+      preparedQuery = await session.prepareQuery(query);
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error(err.message);
+        process.exit(55);
+      }
+    }
     logger.info('Query has been prepared, executing...');
     console.log(
       "series.getTypedValue('seriesId'),",
@@ -87,6 +81,7 @@ VALUES (
       "series.getTypedValue('title')",
       tmdb_record.getTypedValue('title')
     );
+    // @ts-ignore
     await session.executeQuery(preparedQuery, {
       $id: tmdb_record.getTypedValue('id'),
       $adult: tmdb_record.getTypedValue('adult'),
