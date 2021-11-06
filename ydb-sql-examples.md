@@ -48,3 +48,12 @@ AsStruct(3u AS Key, "v3" AS Value));
 
 SELECT Key, Value FROM AS_TABLE($data);
 
+________________________________________
+$ids=AsList(101,102);
+select * from books where id in $ids;
+
+select author_id, aggregate_list(info)
+from books
+group by author_id;
+
+А здесь он вернется как результат. Тип колонки column1 — List<Utf8>
