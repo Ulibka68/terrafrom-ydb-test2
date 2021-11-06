@@ -24,49 +24,44 @@ export function declareTypeNull(typePrim: Ydb.Type.PrimitiveTypeId) {
 }
 
 export class Tmdb extends TypedData {
-  // @declareType({ typeId: TypePrim.UINT64 })
   @declareTypePrim(TypePrim.UINT64)
   // @ts-ignore
   public id: number;
 
-  // @declareType({ typeId: TypePrim.UTF8 })
-  // @declareType({ optionalType: { item: { typeId: TypePrim.UTF8 } } })
   @declareTypeNull(TypePrim.UTF8)
   public title?: string;
 
-  @declareType({ typeId: TypePrim.JSON })
+  @declareTypeNull(TypePrim.JSON)
   public genre_ids?: string;
-  @declareType({ typeId: TypePrim.DATE })
+  @declareTypeNull(TypePrim.DATE)
   public release_date?: Date;
+
+  @declareTypeNull(TypePrim.BOOL)
+  public adult?: Boolean;
+  @declareTypeNull(TypePrim.UTF8)
+  public backdrop_path?: string;
+  @declareTypeNull(TypePrim.UTF8)
+  public original_language?: string;
+  @declareTypeNull(TypePrim.UTF8)
+  public original_title?: string;
+  @declareTypeNull(TypePrim.UTF8)
+  public overview?: string;
+  @declareTypeNull(TypePrim.FLOAT)
+  public popularity?: number;
+  @declareTypeNull(TypePrim.UTF8)
+  public poster_path?: string;
+  @declareTypeNull(TypePrim.BOOL)
+  public video?: Boolean;
+  @declareTypeNull(TypePrim.FLOAT)
+  public vote_average?: number;
+  @declareTypeNull(TypePrim.UINT32)
+  public vote_count?: number;
 
   constructor(data: Record<string, any>) {
     super(data);
   }
 
-  static create(
-    id: number,
-    title?: string,
-    genre_ids?: string,
-    release_date?: Date
-  ): Tmdb {
-    return new this({
-      id,
-      title,
-      genre_ids,
-      release_date,
-    });
+  static create(inp: ITMdb) {
+    return new Tmdb(inp);
   }
-
-  static create1(a: ITMdb) {
-    return new Tmdb(a);
-  }
-
-  /* getTypedValue(propertyKey: string): Ydb.ITypedValue {
-    if (!this[propertyKey]) return { type: null, value: null };
-    else
-      return {
-        type: this.getType(propertyKey),
-        value: this.getValue(propertyKey),
-      };
-  }*/
 }
