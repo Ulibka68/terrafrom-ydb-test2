@@ -17,7 +17,7 @@ import {
   withRetries,
   Ydb,
 } from 'ydb-sdk';
-import { importTmdb } from './import_tmdb2';
+import { importTmdb } from './import_tmdb';
 import { debug } from 'console';
 
 const logger = getLogger({ level: 'debug' });

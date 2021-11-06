@@ -1,4 +1,4 @@
-import { TMDB_TABLE, Tmdb } from './table_defs2';
+import { TMDB_TABLE, Tmdb } from './table_defs';
 import { databaseName, SYNTAX_V1 } from './config';
 import { Logger, Session, withRetries, Ydb } from 'ydb-sdk';
 
@@ -23,8 +23,8 @@ PRAGMA TablePathPrefix("${databaseName}");
 
 DECLARE $id as Uint64;
 DECLARE $title as Optional<Utf8>;
-DECLARE $genre_ids as Json?;
-DECLARE $release_date as Date?;
+DECLARE $genre_ids as Json;
+DECLARE $release_date as Date;
 
 UPSERT INTO  ${TMDB_TABLE}
     (
@@ -42,7 +42,7 @@ VALUES (
 
 `;
 
-  let tmdb_record = Tmdb.create(
+  const tmdb_record = Tmdb.create(
     1213,
     '1212',
     JSON.stringify([1]),
@@ -86,7 +86,10 @@ VALUES (
       $release_date: tmdb_record.getTypedValue('release_date'),
     });
   }
+
   await withRetries(fillTable);
+
+  /*
   tmdb_record = Tmdb.create(
     1214,
     '1214',
@@ -103,4 +106,6 @@ VALUES (
     release_date: new Date('2022-01-01'),
   });
   await withRetries(fillTable);
+  
+   */
 }
