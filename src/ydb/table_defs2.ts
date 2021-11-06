@@ -19,8 +19,8 @@ export class Tmdb extends TypedData {
   // @ts-ignore
   public id: number;
 
-  // @declareType({ optionalType: { item: { typeId: TypePrim.UTF8 } } })
-  @declareType({ typeId: TypePrim.UTF8 })
+  @declareType({ optionalType: { item: { typeId: TypePrim.UTF8 } } })
+  // @declareType({ typeId: TypePrim.UTF8 })
   public title?: string;
 
   @declareType({ typeId: TypePrim.JSON })
@@ -50,12 +50,12 @@ export class Tmdb extends TypedData {
     return new Tmdb(a);
   }
 
-  getTypedValue(propertyKey: string): Ydb.ITypedValue {
+  /* getTypedValue(propertyKey: string): Ydb.ITypedValue {
     if (!this[propertyKey]) return { type: null, value: null };
     else
       return {
         type: this.getType(propertyKey),
         value: this.getValue(propertyKey),
       };
-  }
+  }*/
 }

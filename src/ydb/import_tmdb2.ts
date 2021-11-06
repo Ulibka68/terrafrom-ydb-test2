@@ -22,9 +22,9 @@ export async function importTmdb(session: Session, logger: Logger) {
 PRAGMA TablePathPrefix("${databaseName}");
 
 DECLARE $id as Uint64;
-DECLARE $title as Utf8;
-DECLARE $genre_ids as Json;
-DECLARE $release_date as Date;
+DECLARE $title as Optional<Utf8>;
+DECLARE $genre_ids as Json?;
+DECLARE $release_date as Date?;
 
 UPSERT INTO  ${TMDB_TABLE}
     (
@@ -98,7 +98,7 @@ VALUES (
   console.log('--------------------');
   tmdb_record = Tmdb.create1({
     id: 2024,
-    title: 'title 2024',
+
     genre_ids: JSON.stringify([1]),
     release_date: new Date('2022-01-01'),
   });
