@@ -19,7 +19,6 @@ TablePathPrefix
 
 export async function importTmdb(session: Session, logger: Logger) {
   const query = `
-${SYNTAX_V1}
 PRAGMA TablePathPrefix("${databaseName}");
 
 DECLARE $id as Uint64;
@@ -92,7 +91,7 @@ VALUES (
     1214,
     '1214',
     JSON.stringify([1]),
-    new Date('1945-01-26')
+    new Date('2220-01-26')
   );
   await withRetries(fillTable);
 }

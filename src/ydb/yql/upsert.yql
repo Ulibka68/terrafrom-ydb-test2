@@ -1,4 +1,3 @@
---!syntax_v1
 PRAGMA TablePathPrefix("/ru-central1/b1gib03pgvqrrfvhl3kb/etnn9li53arnjigll14s");
 
 DECLARE $id as Uint64;
