@@ -26,18 +26,53 @@ DECLARE $title as Optional<Utf8>;
 DECLARE $genre_ids as Json?;
 DECLARE $release_date as Date?;
 
+DECLARE $adult as Bool?;
+DECLARE $backdrop_path as Utf8?;
+DECLARE $original_language as Utf8?;
+DECLARE $original_title as Utf8?;
+DECLARE $overview as Utf8?;
+DECLARE $popularity as float?;
+DECLARE $poster_path as Utf8?;
+DECLARE $video as Bool?;
+DECLARE $vote_average as float?;
+DECLARE $vote_count as Uint32?;
+
+
 UPSERT INTO  ${TMDB_TABLE}
     (
         id,
         title,
         genre_ids,
-        release_date
+        release_date,
+        
+        adult,
+        backdrop_path,
+        original_language,
+        original_title,
+        overview,
+        popularity,
+        poster_path,
+        video,
+        vote_average,
+        vote_count
+
         )
 VALUES (
         $id,
         $title,
         $genre_ids,
-        $release_date
+        $release_date,
+        
+        $adult,
+        $backdrop_path,
+        $original_language,
+        $original_title,
+        $overview,
+        $popularity,
+        $poster_path,
+        $video,
+        $vote_average,
+        $vote_count
  );
 
 `;
