@@ -42,7 +42,7 @@ VALUES (
 
 `;
 
-  const tmdb_record = Tmdb.create1({
+  const tmdb_record = Tmdb.create({
     id: 1213,
     title: '1212',
     genre_ids: JSON.stringify([1]),
