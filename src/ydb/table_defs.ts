@@ -23,9 +23,10 @@ export class Tmdb extends TypedData {
   @declareTypeNull(TypePrim.UTF8)
   public title?: string;
 
-  @declareType({ typeId: TypePrim.JSON })
+  @declareTypeNull(TypePrim.JSON)
   public genre_ids?: string;
-  @declareType({ typeId: TypePrim.DATE })
+
+  @declareTypeNull(TypePrim.DATE)
   public release_date?: Date;
 
   constructor(data: Record<string, any>) {
