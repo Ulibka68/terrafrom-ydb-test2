@@ -1,12 +1,19 @@
 // @ts-nocheck1
 
 import { type } from 'os';
-import { declareType, TypedData, Ydb } from 'ydb-sdk';
+import {
+  declareType,
+  declareTypePrim,
+  declareTypeNull,
+  TypedData,
+  Ydb,
+  ITableFromClass,
+} from 'ydb-sdk';
 
 // const Type = Ydb.Type;
 const TypePrim = Ydb.Type.PrimitiveTypeId;
 export const TMDB_TABLE = 'tmdb'; // имя таблицы
-
+/*
 type NonFunctionKeys<T extends object> = {
   [K in keyof T]-?: T[K] extends Function ? never : K;
 }[keyof T];
@@ -21,7 +28,9 @@ export function declareTypePrim(typePrim: Ydb.Type.PrimitiveTypeId) {
 export function declareTypeNull(typePrim: Ydb.Type.PrimitiveTypeId) {
   const type: Ydb.IType = { optionalType: { item: { typeId: typePrim } } };
   return declareType(type);
-}
+}*/
+
+type ITMdb = ITableFromClass<Tmdb>;
 
 export class Tmdb extends TypedData {
   // @declareType({ typeId: TypePrim.UINT64 })
