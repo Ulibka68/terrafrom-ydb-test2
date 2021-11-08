@@ -42,12 +42,12 @@ VALUES (
 
 `;
 
-  const tmdb_record = Tmdb.create(
-    1213,
-    '1212',
-    JSON.stringify([1]),
-    new Date('2020-05-26')
-  );
+  const tmdb_record = Tmdb.create1({
+    id: 1213,
+    title: '1212',
+    genre_ids: JSON.stringify([1]),
+    release_date: new Date('2020-05-26'),
+  });
 
   async function fillTable() {
     logger.info('Inserting data to tables, preparing query...');
