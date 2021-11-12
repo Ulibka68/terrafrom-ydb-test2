@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "dotenv": "^10.0.0",
-    "ydb-sdk": "^2.5.0"
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.176",
