@@ -18,11 +18,11 @@ export const TMDB_TABLE = 'tmdb'; // имя таблицы
 type ITMdb = ITableFromClass<Tmdb>;
 
 export class Tmdb extends TypedData {
-  // @declareTypePrim(TypePrim.UINT64)
+  @declareTypePrim(TypePrim.UINT64)
   // @ts-ignore
   public id: number;
 
-  // @declareTypeNull(TypePrim.UTF8)
+  @declareTypeNull(TypePrim.UTF8)
   public title?: string;
 
   @declareTypeNull(TypePrim.JSON)
@@ -47,19 +47,12 @@ export class Tmdb extends TypedData {
 }
 
 (function initTmdb() {
-  const tmp = Tmdb.create({ id: 0, title: 'title' });
-  Reflect.defineMetadata(
-    typeMetadataKey,
-    { typeId: TypePrim.UINT64 },
-    tmp,
-    'id'
-  );
-  Reflect.defineMetadata(
-    typeMetadataKey,
-    { optionalType: { item: { typeId: TypePrim.UTF8 } } },
-    tmp,
-    'title'
-  );
+  const tmp = Tmdb.create({
+    id: 0,
+    title: 'title',
+    genre_ids: [0],
+    release_date: new Date(),
+  });
 
   tmp.generateYQLUpsert(TMDB_TABLE, databaseName);
   const type = tmp.getType('title');

@@ -1,11 +1,13 @@
 {
+  "extends": "@tsconfig/node16/tsconfig.json",
+
   "compilerOptions": {
 
     //    https://www.staging-typescript.org/tsconfig#lib
-    "lib": ["dom", "dom.iterable", "esnext"], /* Specify library files to be included in the compilation. */
+    "lib": ["es2021"], /* Specify library files to be included in the compilation. */
 
-    "module": "ESNext",
-    "target": "ESNext",
+    "module": "CommonJS",
+    "target": "es2021",
     "newLine": "lf",
     "stripInternal": true, // Disable emitting declarations that have `@internal` in their JSDoc comments.
     "noFallthroughCasesInSwitch": true, // Enable error reporting for fallthrough cases in switch statements.
@@ -28,11 +30,11 @@
     "emitDecoratorMetadata": true,
 
 //    "emitDeclarationOnly": true, // turns off compilation and declaration ensures the type definition files are generated.
-    "declaration": true // Generate .d.ts files from TypeScript and JavaScript files in your project.
+    "declaration": true, // Generate .d.ts files from TypeScript and JavaScript files in your project.
 
-  },
   "outDir": "./dist/",
-//  "outfile": "ydb-bundle.js", // нельзя использовать для common js
+//  "outFile": "ydb-bundle.js", // нельзя использовать для common js
+  },
   "exclude": [
     "node_modules"
   ],

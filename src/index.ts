@@ -2,6 +2,7 @@ import { config } from 'dotenv';
 config({ path: 'env.local' });
 
 // import { Driver, Logger, Session, Ydb } from 'ydb-sdk';
+import { Session } from 'ydb-sdk';
 import {
   driver,
   initYDBdriver,
@@ -10,7 +11,7 @@ import {
 } from './ydb/ydb-functions';
 import { fillTmdbWithData } from './ydb/fill_tmdb_with_data';
 
-async function run() {
+(async function run() {
   await initYDBdriver(); // если не удалось инициализация - то внутри идет process.exit
 
   await driver.tableClient.withSession(async (session) => {
@@ -26,6 +27,6 @@ async function run() {
   });
 
   await driver.destroy();
-}
+})();
 
-await run();
+// const text = await run();

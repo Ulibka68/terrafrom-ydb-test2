@@ -65,3 +65,7 @@ google.protobuf.Duration operation_timeout = 2;
     // sent back to client if it was waiting for the operation result.
     // In case when cancellation isn't possible, no action will be performed.
     google.protobuf.Duration cancel_after = 3;
+
+Проверка прилинкованных пакетов
+npm ls -g --depth=0 --link=true
+npm ls --depth=0 --link=true
