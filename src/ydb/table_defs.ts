@@ -10,7 +10,7 @@ import {
   ITableFromClass,
   typeMetadataKey,
 } from 'ydb-sdk';
-import { databaseName } from './config';
+import { databaseName } from './ydb-functions';
 
 const TypePrim = Ydb.Type.PrimitiveTypeId;
 export const TMDB_TABLE = 'tmdb'; // имя таблицы

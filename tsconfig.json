@@ -4,8 +4,8 @@
     //    https://www.staging-typescript.org/tsconfig#lib
     "lib": ["dom", "dom.iterable", "esnext"], /* Specify library files to be included in the compilation. */
 
-    "module": "commonjs",
-    "target": "ES2019",
+    "module": "ESNext",
+    "target": "ESNext",
     "newLine": "lf",
     "stripInternal": true, // Disable emitting declarations that have `@internal` in their JSDoc comments.
     "noFallthroughCasesInSwitch": true, // Enable error reporting for fallthrough cases in switch statements.

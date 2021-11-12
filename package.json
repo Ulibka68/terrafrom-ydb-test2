@@ -4,11 +4,10 @@
   "license": "MIT",
   "author": "Gayrat Vlasov",
   "scripts": {
-    "ts-node": "ts-node ./src/ydb/ydb-main.ts",
-    "ts-node2": "cp -f ./deploy/terraform.tfstate ./deploy/terraform.json && ts-node ./src/config.ts",
+    "ts-node": "ts-node src/index.ts",
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "clean": "rimraf -rf dist build ",
-    "tsc-build2": "tsc ./src/ydb-main.ts --outfile ydb-main.js -p tsconfig.json",
+    "tsc-build2": "tsc ./src/index.ts --outfile ydb-main.js -p tsconfig.json",
     "build": "tsc -p tsconfig.json",
     "docs": "typedoc --entryPoints src/main.ts",
     "esbuild-ydb": "esbuild src/ydb-main.ts --bundle --platform=node --minify --sourcemap=external --outfile=dist/esbuild/ydb.js",

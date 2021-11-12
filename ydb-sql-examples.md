@@ -57,3 +57,31 @@ from books
 group by author_id;
 
 А здесь он вернется как результат. Тип колонки column1 — List<Utf8>
+
+
+_______________________________________
+В YQL совершенно точно есть команда **ALTER TABLE**
+Но в разделе Справочник YQL Синтаксис (ссылка ниже)
+https://cloud.yandex.ru/docs/ydb/yql/reference/syntax/create_table
+
+Отсутствует описание команды ALTER TABLE
+
+Из примерров можно сделать вывод что ALTER TABLE все таки есть:
+ALTER TABLE episodes ADD COLUMN viewers Uint64;
+ALTER TABLE episodes DROP COLUMN viewers;
+
+
+
+Просьба добавить в документацию в раздел Справочник YQL Синтаксис команды
+ALTER TABLE
+и команды создания/удаления вторичного индекса
+
+https://cloud.yandex.ru/docs/ydb/oss/public/develop/concepts/secondary_indexes
+
+ALTER TABLE `series` ADD INDEX `title_index` GLOBAL [SYNC|ASYNC] ON (`title`);
+ALTER TABLE `series` DROP INDEX `title_index`;
+
+---------------------
+Как можно через SDK получить состояния операции построения вторичного индекса или отменить построение вторичного индекса?
+
+
