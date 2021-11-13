@@ -24,8 +24,8 @@ export async function fillFromStruct(session: Session, logger: Logger) {
     genre_ids: JSON.stringify([1]),
     release_date: new Date(),
     popularity: 1,
-    // poster_path: 'poster_path',
-    // video: 'as',
+    poster_path: 'poster_path',
+    video: true,
   });
 
   async function fillTable() {

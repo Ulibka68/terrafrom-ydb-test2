@@ -47,6 +47,7 @@ export interface FieldsDefinition {
   val: any;
   pt: Ydb.Type.PrimitiveTypeId;
   opt: string | number;
+  pk?: boolean; // primary key
 }
 
 export type TableDefinition = Record<string, FieldsDefinition>;
