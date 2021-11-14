@@ -1,4 +1,4 @@
-import { Ydb } from 'ydb-sdk';
+import { Ydb, TypedDataFieldDescription } from 'ydb-sdk';
 
 export type NonNeverKeys<T extends object> = {
   [K in keyof T]-?: T[K] extends never ? never : K;

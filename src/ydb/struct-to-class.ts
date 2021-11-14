@@ -63,11 +63,13 @@ export class Tdef extends TypedData {
   static initClassOnce() {
     const rec = new Tdef(Tdef.generateInitialData(tdef as TableDefinition));
     rec.generateYQLUpsert(TMDB_TABLE, databaseName);
+    console.log(this.fieldsDescriptions);
     console.log(Tdef.generateYQLcreateTable(TMDB_TABLE, databaseName, tdef));
   }
 
   constructor(data: ITdef) {
     super(data);
+
     this.generateMetadata(tdef as TableDefinition);
   }
 
