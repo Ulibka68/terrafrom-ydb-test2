@@ -46,6 +46,13 @@ Tdef.initTableDef(Tdef, 'tmdb', databaseName, tdef);
 // вывод сгенерированной информации
 console.log('Tdef.refMetaData');
 console.log(Tdef.refMetaData);
-console.log(Tdef.refMetaData.YQLCreateTable);
+
+
+const a1 = new Tdef({ id: 452, title: 'as' });
+console.log(a1.createQueryParams());
+
+console.log(Tdef.refMetaData.fieldsDescriptions);
 process.exit(777);
-*/
+
+
+ */
