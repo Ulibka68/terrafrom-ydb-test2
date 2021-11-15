@@ -1,23 +1,20 @@
-interface SobakaConstruiren {
-  new (hour: number, minute: number): FuncInterface1;
-}
-interface FuncInterface1 {
-  method1(): void;
+interface ClassConstruct {
+  new (): any;
 }
 
-function createClock(
-  ctor: SobakaConstruiren,
-  hour: number,
-  minute: number
-): FuncInterface1 {
-  return new ctor(hour, minute);
-}
-
-class Sobaka implements FuncInterface1 {
+// class Sobaka implements FuncInterface1 {
+class Sobaka {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor(h: number, m: number) {}
+  constructor() {}
   method1() {
     console.log('beep beep');
   }
 }
-const analog = createClock(Sobaka, 7, 32);
+
+function zuzuzu(ctor: ClassConstruct) {
+  // return new ctor();
+  const obj = new ctor(); // HERE
+  obj.method1();
+}
+
+zuzuzu(Sobaka);

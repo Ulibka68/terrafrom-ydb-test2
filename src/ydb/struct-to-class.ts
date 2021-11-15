@@ -2,13 +2,11 @@ import 'reflect-metadata';
 import {
   Ydb,
   TypedData,
-  typeMetadataKey,
-  primitiveTypeIdToName,
+  YdbTableMetaData,
+  ConvertStructToTypes,
 } from 'ydb-sdk';
-import { ConvertStructToTypes, TableDefinition } from '../types/utils-types';
 import { databaseName } from './ydb-functions';
 
-export const TMDB_TABLE = 'tmdb'; // имя таблицы
 const Pt = Ydb.Type.PrimitiveTypeId;
 
 const tdef = {
@@ -35,73 +33,19 @@ const tdef = {
 export type ITdef = ConvertStructToTypes<typeof tdef>;
 
 export class Tdef extends TypedData {
-  generateMetadata(tableDef: TableDefinition) {
-    Reflect.ownKeys(tableDef).forEach((key) => {
-      let metadataValue: any = {};
-      key = key as string;
-
-      if (tableDef[key].opt === 'r') {
-        metadataValue = { typeId: tableDef[key].pt };
-      } else
-        metadataValue = {
-          optionalType: { item: { typeId: tableDef[key].pt } },
-        };
-
-      Reflect.defineMetadata(typeMetadataKey, metadataValue, this, key);
-    });
-  }
-
-  static generateInitialData(tableDef: TableDefinition) {
-    const resultObj: any = {};
-    Reflect.ownKeys(tableDef).forEach((key) => {
-      key = key as string;
-      resultObj[key] = tableDef[key].val;
-    });
-    return resultObj;
-  }
-
-  static initClassOnce() {
-    const rec = new Tdef(Tdef.generateInitialData(tdef as TableDefinition));
-    rec.generateYQLUpsert(TMDB_TABLE, databaseName);
-    console.log(this.fieldsDescriptions);
-    console.log(Tdef.generateYQLcreateTable(TMDB_TABLE, databaseName, tdef));
-  }
+  public static refMetaData: YdbTableMetaData;
 
   constructor(data: ITdef) {
     super(data);
-
-    this.generateMetadata(tdef as TableDefinition);
   }
-
-  static generateYQLcreateTable(
-    tableName: string,
-    databaseName: string,
-    tableDef: TableDefinition
-  ) {
-    let rst = `PRAGMA TablePathPrefix("${databaseName}");\n`;
-    let rst_primary = `\n    PRIMARY KEY (`;
-    let first_primary = true;
-
-    const typeKeys = primitiveTypeIdToName;
-
-    const tpo = TypedData.fieldsDescriptions;
-
-    rst += `CREATE TABLE ${tableName} (`;
-    Reflect.ownKeys(tableDef).forEach((key) => {
-      key = key as string;
-      rst += `\n    ${key} ${primitiveTypeIdToName[tableDef[key].pt]},`;
-      if (tableDef[key].pk) {
-        if (!first_primary) {
-          rst_primary += ',';
-        }
-        first_primary = false;
-        rst_primary += key;
-      }
-    });
-    rst_primary += ')';
-    rst += rst_primary + '\n)';
-    return rst;
-  } // generateYQLcreateTable
 }
 
-Tdef.initClassOnce();
+// инициализация класса таблицы
+Tdef.initTableDef(Tdef, 'tmdb', databaseName, tdef);
+/*
+// вывод сгенерированной информации
+console.log('Tdef.refMetaData');
+console.log(Tdef.refMetaData);
+console.log(Tdef.refMetaData.YQLCreateTable);
+process.exit(777);
+*/

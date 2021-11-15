@@ -1,6 +1,6 @@
 import { Logger, Session, withRetries, Ydb } from 'ydb-sdk';
 import { databaseName } from './ydb-functions';
-import { Tdef, TMDB_TABLE } from './struct-to-class';
+import { Tdef } from './struct-to-class';
 
 /*
 PRAGMA
@@ -33,7 +33,7 @@ export async function fillFromStruct(session: Session, logger: Logger) {
     // console.log(query);
     let preparedQuery: Ydb.Table.PrepareQueryResult;
     try {
-      preparedQuery = await session.prepareQuery(Tdef.YQLUpsert);
+      preparedQuery = await session.prepareQuery(Tdef.refMetaData.YQLUpsert);
     } catch (err) {
       if (err instanceof Error) {
         console.error(err.message);
