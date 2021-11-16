@@ -52,6 +52,17 @@ const a1 = new Tdef({ id: 452, title: 'as' });
 console.log(a1.createQueryParams());
 
 console.log(Tdef.refMetaData.fieldsDescriptions);
+
+console.log('Tdef.refMetaData');
+console.log(Tdef.refMetaData.YQLUpsertSeries);
+console.log();
+
+console.log(Tdef.refMetaData.YQLUpsert);
+
+
+const a = new Tdef({ id: 20, title: 'asd' });
+console.log(a);
+console.log('---');
 process.exit(777);
 
 

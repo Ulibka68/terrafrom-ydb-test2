@@ -4,6 +4,7 @@ import {
   getCredentialsFromEnv,
   Logger,
   Session,
+  primitiveTypeIdToName,
   Ydb,
 } from 'ydb-sdk';
 
@@ -19,14 +20,18 @@ export async function describeTable(
 ) {
   logger.info(`Describing table: ${tableName}`);
   const result = await session.describeTable(tableName);
+  console.log('\nTable ', tableName);
   for (const column of result.columns) {
+    // console.log(
+    //   `Column name '${column.name}' has type ${JSON.stringify(column.type)}`
+    // );
     console.log(
-      `Column name '${column.name}' has type ${JSON.stringify(column.type)}`
+      `  Column '${column.name}' type ${
+        primitiveTypeIdToName[column.type!.optionalType!.item!.typeId!]
+      }`
     );
-    console.log(column.type);
-    console.log(column.type);
-    console.log(column.type!.optionalType!.item!.typeId);
   }
+  console.log();
 }
 
 export async function initYDBdriver() {
