@@ -5,7 +5,6 @@ import {
   Logger,
   Session,
   primitiveTypeIdToName,
-  Ydb,
 } from 'ydb-sdk';
 
 export const databaseName = process.env.DATABASENAME!;

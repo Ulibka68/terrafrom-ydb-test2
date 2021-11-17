@@ -10,7 +10,7 @@
 yc iam key create \
 --folder-id <идентификатор каталога> \
 --service-account-name <имя сервисного аккаунта> \
---output sa.json
+--output service_account_key_file.json
 ```
 
 ### yc
@@ -21,13 +21,27 @@ https://cloud.yandex.ru/docs/cli/quickstart
 ## Создание конфигурационного файла 
 Создайте файл env.local в корневой директории.  
 Скопируйте туда строку:  
-YDB_SERVICE_ACCOUNT_KEY_FILE_CREDENTIALS=sa.json
+YDB_SERVICE_ACCOUNT_KEY_FILE_CREDENTIALS=service_account_key_file.json  
+(готовый пример файла уже приведен в данном проекте)
 
 # Настройка подключения к базе данных
 Перейдите в консоль YDB, создайте базу данных и сверху справа будет кнопка "подключиться".
-Нажмите на нее и скопируйте предлагаемый кусок кода.
+Нажмите на нее и заполните в файле env.local поля:  
+DOCUMENT_API_ENDPOINT и  
+DATABASENAME
 
+# Улучшение старой системы описания таблиц
 
+Добавил два декоратора для описания обязательных и опциональных полей:  
+declareTypePrim,  
+declareTypeNull  
+
+Добавил generic класс ITableFromClass для получения типа-интерфейса для испольования в методе create 
+type ITMdb = ITableFromClass<Tmdb>;
+
+Пример можно посмотреть в файле table_defs.ts
+
+# Новая структура формирования описания таблиц 
 
 
 ---

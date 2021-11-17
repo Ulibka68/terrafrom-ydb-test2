@@ -2,13 +2,11 @@
 
 import 'reflect-metadata';
 import {
-  declareType,
   declareTypePrim,
   declareTypeNull,
   TypedData,
   Ydb,
   ITableFromClass,
-  typeMetadataKey,
 } from 'ydb-sdk';
 import { databaseName } from './ydb-functions';
 
@@ -33,30 +31,9 @@ export class Tmdb extends TypedData {
 
   constructor(data: Record<string, any>) {
     super(data);
-
-    /*Reflect.ownKeys(data).forEach((key) => {
-      this[key as string] = data[key as string];
-    });
-*/
-    console.log(this.title);
   }
 
   static create(inp: ITMdb) {
     return new Tmdb(inp);
   }
 }
-
-(function initTmdb() {
-  const tmp = Tmdb.create({
-    id: 0,
-    title: 'title',
-    genre_ids: [0],
-    release_date: new Date(),
-  });
-
-  tmp.generateYQLUpsert(TMDB_TABLE, databaseName);
-  const type = tmp.getType('title');
-  console.log(type); // { optionalType: { item: { typeId: 4608 } } }
-
-  // console.log(Tmdb.YQLUpsert);
-})();
