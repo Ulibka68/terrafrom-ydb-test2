@@ -1,11 +1,9 @@
-[Managed Disks](#улучшение-старой-системы-описания-таблиц)
-
 # Создание базы 
-Создайте serverless базу YDB согласно документации (используя terraform)
+Создайте serverless базу YDB согласно документации (либо используя terraform)
 
 # Формирование ключа для доступа к YDB
 В корневой директории необходимо сформировать ключ для доступа к базе.
-Ключ будет сформирован в файле sa.json
+Ключ будет сформирован в файле service_account_key_file.json
 
 Запустите команду: (если Вы под windows - то лучше запускать из wsl)
 ```
@@ -31,7 +29,10 @@ YDB_SERVICE_ACCOUNT_KEY_FILE_CREDENTIALS=service_account_key_file.json
 ![img](https://raw.githubusercontent.com/Ulibka68/terrafrom-ydb-test2/contrubute-to-sdk/assets/1.png)
 Нажмите на нее и заполните в файле env.local поля:  
 DOCUMENT_API_ENDPOINT и  
-DATABASENAME
+DATABASENAME  
+
+Либо просто скопируйте данную информацию из базы данных в web интерфейсе.
+
 
 # Улучшение старой системы описания таблиц
 
