@@ -32,17 +32,32 @@ DOCUMENT_API_ENDPOINT и
 DATABASENAME  
 
 Либо просто скопируйте данную информацию из базы данных в web интерфейсе.
-
+![img](https://raw.githubusercontent.com/Ulibka68/terrafrom-ydb-test2/contrubute-to-sdk/assets/2.png)
 
 # Улучшение старой системы описания таблиц
 
-Добавил два декоратора для описания обязательных и опциональных полей:  
+Для упрощения написания декораторов добавил два декоратора для описания обязательных и опциональных полей:  
 declareTypePrim,  
 declareTypeNull  
 
-Добавил generic класс ITableFromClass для получения типа-интерфейса для испольования в методе create 
+Теперь декораторы можно записать проще:
+```js
+  @declareTypePrim(TypePrim.UINT64)
+  public id: number;
 
+  @declareTypeNull(TypePrim.UTF8)
+  public title?: string;
+```
+
+Если раньше вместе с классом было необходимо написать интерфейс аналогичного содержания, то теперь я добавил generic тип ITableFromClass для получения типа-интерфейса для испольования в методе create 
+```js
 type ITMdb = ITableFromClass<Tmdb>;
+
+// Метод create теперь выглядит вот так:
+static create(inp: ITMdb) {
+ return new Tmdb(inp);
+}
+```
 
 Пример можно посмотреть в файле table_defs.ts
 
