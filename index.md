@@ -1,6 +1,5 @@
 ## Welcome to GitHub Pages
-[Book logo](docs/assets/05.jpeg)
-[image info](docs/assets/05.jpeg)
+![image info](docs/assets/05.jpeg)
 
 
 You can use the [editor on GitHub](https://github.com/Ulibka68/terrafrom-ydb-test2/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
