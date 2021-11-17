@@ -26,7 +26,7 @@ YDB_SERVICE_ACCOUNT_KEY_FILE_CREDENTIALS=service_account_key_file.json
 
 # Настройка подключения к базе данных
 Перейдите в консоль YDB, создайте базу данных и сверху справа будет кнопка "подключиться".
-![img](assets/1.png)
+![img](https://raw.githubusercontent.com/Ulibka68/terrafrom-ydb-test2/contrubute-to-sdk/assets/1.png)
 Нажмите на нее и заполните в файле env.local поля:  
 DOCUMENT_API_ENDPOINT и  
 DATABASENAME
