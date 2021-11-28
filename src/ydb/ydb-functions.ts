@@ -5,7 +5,7 @@ import {
   Logger,
   Session,
   primitiveTypeIdToName,
-} from 'ydb-sdk';
+} from '@ggvlasov/ydb-sdk';
 
 export const databaseName = process.env.DATABASENAME!;
 export const logger = getLogger({ level: process.env.LOGLEVEL! });
