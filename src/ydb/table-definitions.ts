@@ -64,6 +64,6 @@ export class Season extends TypedData {
 }
 
 // инициализация класса таблицы
-// Series.initTableDef(Series, 'series', databaseName, series);
+Series.initTableDef(databaseName, 'series', series);
 Episodes.initTableDef(databaseName, 'episodes', episode);
-// Season.initTableDef(Season, 'season', databaseName, season);
+Season.initTableDef(databaseName, 'season', season);
